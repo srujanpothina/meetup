@@ -12,15 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/speaker")
 public class SpeakerController {
 
   @Autowired
   private SpeakerService service;
 
-  @PostMapping(value = "/speaker", produces = {MediaType.APPLICATION_JSON_VALUE})
+  @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
   public User addSpeaker(@Valid @RequestBody final User user) {
     return service.addSpeaker(user);
   }
@@ -30,12 +32,12 @@ public class SpeakerController {
     return service.addSpeakers(users);
   }
 
-  @GetMapping("/speakers")
+  @GetMapping
   public List<User> findAllSpeakers() {
     return service.getAllSpeakers();
   }
 
-  @GetMapping("/speaker/{id}")
+  @GetMapping("/{id}")
   public User getSpeakerById(@PathVariable final int id) {
     return service.getSpeakerById(id);
   }
@@ -45,12 +47,12 @@ public class SpeakerController {
     return service.getSpeakerByName(name);
   }
 
-  @PutMapping("/speaker")
+  @PutMapping
   public User updateSpeaker(@Valid @RequestBody final User user) {
     return service.updateSpeaker(user);
   }
 
-  @DeleteMapping("/speaker/{id}")
+  @DeleteMapping("/{id}")
   public void deleteSpeaker(@PathVariable final int id) {
     service.deleteSpeaker(id);
   }

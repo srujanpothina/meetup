@@ -34,7 +34,7 @@ public class UserControllerTest {
   @Before
   public void setUp() {
     when(service.addSpeaker(any()))
-        .thenReturn(new User(1, "srujan#", "", "", "", "", "", ""));
+        .thenReturn(new User(1, "srujan#", "", "", "", "", "", null));
     //when(service.updateSpeaker(any()))
     //    .thenThrow(EntityNotFoundException.class);
   }
