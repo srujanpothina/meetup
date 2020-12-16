@@ -1,12 +1,13 @@
 package com.meetup.entity;
 
-import com.meetup.util.UserType;
+import com.meetup.util.Role;
 import com.meetup.util.ValueOfEnum;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,13 +18,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "SPEAKER")
+@Table(name = "USER",
+    uniqueConstraints =
+    @UniqueConstraint(columnNames = {"email", "role"}))
 public class User {
 
   @Id
   @GeneratedValue
   private int id;
-  @NotBlank(message = "Name is mandatory")
+  @NotNull(message = "NotNull.user.name")
   private String name;
   private String dateOfBirth;
   @NotBlank(message = "City is mandatory")
@@ -36,30 +39,6 @@ public class User {
   @Column(length = 10)
   private String phone;
   @NotNull(message = "User Type has to be present")
-  @ValueOfEnum(enumClass = UserType.class)
-  private String type;
-
-  //public int getId() {
-  //  return id;ßßßß
-  //}
-  //
-  //public void setId(final int id) {
-  //  this.id = id;
-  //}
-  //
-  //public String getFirstName() {
-  //  return firstName;
-  //}
-  //
-  //public void setFirstName(final String firstName) {
-  //  this.firstName = firstName;
-  //}
-  //
-  //public String getLastName() {
-  //  return lastName;
-  //}
-  //
-  //public void setLastName(final String lastName) {
-  //  this.lastName = lastName;
-  //}
+  @ValueOfEnum(enumClass = Role.class)
+  private String role;
 }
