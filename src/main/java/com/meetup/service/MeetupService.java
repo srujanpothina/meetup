@@ -4,7 +4,9 @@ import com.meetup.entity.Meetup;
 import com.meetup.repository.MeetupRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class MeetupService {
@@ -24,7 +26,10 @@ public class MeetupService {
   }
 
   public Meetup getMeetupById(final Integer id) {
-    return repository.findById(id).orElse(null);
+    return repository.findById(id).orElseThrow(()
+        -> new ResponseStatusException(
+        HttpStatus.NOT_FOUND,
+        "Meetup with id:" + id + " does not exist."));
   }
 
   public Meetup getMeetupByName(final String name) {
